@@ -5,7 +5,7 @@ def main():
     cnt = [0 for _ in range(N)]
     for i, p in enumerate(P):
         for j in range(3):
-            cnt[(p - 1 - i + j + N % N)] += 1
+            cnt[(p - 1 - i + j + N) % N] += 1
         
     ans = 0
     for c in cnt:   
