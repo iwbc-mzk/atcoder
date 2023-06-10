@@ -1,5 +1,6 @@
 from collections import defaultdict
-from queue import Queue
+import heapq
+import math
 
 
 def main():
@@ -11,37 +12,30 @@ def main():
         gragh[b].add(a)
 
     PH = defaultdict(int)
+    heap = []
     for _ in range(K):
         p, h = map(int, input().split())
         PH[p] = h
+        heap.append((-h, p))
 
-    ans = [0 for _ in range(N + 1)]
-    for p, h in PH.items():
-        q = Queue()
-        q.put((p, h + 1))
-        ans[p] = h
-        while not q.empty():
-            v, d = q.get()
-            if d < ans[v]:
-                continue
-            ans[v] = d
+    heapq.heapify(heap)
 
-            if d - 1 == 0:
-                continue
+    ans = [(PH[i] if i in PH else -math.inf) for i in range(1, N + 1)]
+    while heap:
+        h, p = heapq.heappop(heap)
+        h = -h
 
-            for vv in gragh[v]:
-                dd = d - 1
-                if vv in PH:
-                    dd = max(dd, PH[vv] + 1)
-                if dd > ans[vv]:
-                    q.put((vv, dd))
+        for pp in gragh[p]:
+            if ans[pp - 1] < h - 1:
+                ans[pp - 1] = h - 1
+                heapq.heappush(heap, (-(h - 1), pp))
 
     cnt = 0
     ans_idx = []
     for i, a in enumerate(ans):
-        if a > 0:
+        if a >= 0:
             cnt += 1
-            ans_idx.append(i)
+            ans_idx.append(i + 1)
     print(cnt)
     print(*ans_idx)
 
