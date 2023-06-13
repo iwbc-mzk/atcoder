@@ -1,28 +1,21 @@
-from collections import Counter, defaultdict
+from collections import defaultdict
+
 
 def main():
-    S = input()
+    S = list(map(int, list(input())))
+    N = len(S)
+
+    P = [0 for _ in range(N + 1)]
+    M = defaultdict(int)
+    M[P[0]] += 1
+
+    for i, s in enumerate(S, 1):
+        P[i] = P[i - 1] ^ (1 << s)
+        M[P[i]] += 1
 
     ans = 0
-    for l in range(len(S)):
-        d = defaultdict(int)
-        pre = 0
-        for r in range(l+2, len(S)+1, 2):
-            if (r - l) % 2:
-                continue
-
-            while pre < r:
-                d[S[pre]] += 1
-                pre += 1
-
-            # c = Counter(list(S[l:r]))
-            if len(d):
-                for v in d.values():
-                    if v % 2:
-                        break
-                else:
-                    ans += 1
-                    
+    for v in M.values():
+        ans += v * (v - 1) // 2
 
     print(ans)
 
