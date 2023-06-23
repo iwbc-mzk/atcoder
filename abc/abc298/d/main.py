@@ -1,23 +1,34 @@
-from math import pow
+from collections import deque
 
 MOD = 998244353
+
 
 def main():
     Q = int(input())
 
-    s = 1
-    dn = 1
+    S = 1
+    num = deque()
+    num.append(S)
     for _ in range(Q):
-        i, *j = input().split()
-        if i == "1":
-            j = j[0]
-            s = 10 * s + int(j)
-            dn += 1
-        if i == "2":
-            s %= int(pow(10, dn - 1))
-            dn -= 1
-        if i == "3":
-            print(s % 998244353)
+        q, *x = map(int, input().split())
+        if q == 1:
+            x = x[0]
+            S *= 10
+            S %= MOD
+            S += x % MOD
+            S %= MOD
+            num.append(x)
+        elif q == 2:
+            t = num.popleft()
+
+            tmp = t % MOD
+            tmp *= pow(10, len(num), MOD)
+            tmp %= MOD
+
+            S -= tmp
+            S %= MOD
+        else:
+            print(S)
 
 
 if __name__ == "__main__":
