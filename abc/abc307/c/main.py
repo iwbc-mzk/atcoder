@@ -1,3 +1,20 @@
+def get_blacks(l):
+    blacks = set()
+    for h, r in enumerate(l):
+        for w, c in enumerate(r):
+            if c == "#":
+                blacks.add((h, w))
+
+    return blacks
+
+
+def norm(blacks):
+    minh = min(x[0] for x in blacks)
+    minw = min(x[1] for x in blacks)
+
+    return {(h - minh, w - minw) for (h, w) in blacks}
+
+
 def main():
     Ha, Wa = map(int, input().split())
     A = [list(input()) for _ in range(Ha)]
@@ -8,20 +25,19 @@ def main():
     Hx, Wx = map(int, input().split())
     X = [list(input()) for _ in range(Hx)]
 
-    black_a = 0
-    for r in A:
-        black_a += r.count("#")
+    A_norm = norm(get_blacks(A))
+    B_norm = norm(get_blacks(B))
+    X_norm = norm(get_blacks(X))
 
-    black_b = 0
-    for r in B:
-        black_b += r.count("#")
-
-    black_x = 0
-    for r in X:
-        black_x += r.count("#")
-
-    diff = abs(bl)
-
+    for dh in range(-Hx, Hx):
+        for dw in range(-Wx, Wx):
+            b = {(h + dh, w + dw) for (h, w) in B_norm}
+            u = A_norm | b
+            if X_norm == norm(u):
+                print("Yes")
+                return
+    else:
+        print("No")
 
 
 if __name__ == "__main__":

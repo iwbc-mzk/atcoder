@@ -5,20 +5,22 @@ def main():
     N = int(input())
     S = input()
 
-    I = set(range(len(S)))
-
-    l = deque()
-    e = set()
-    for i, si in enumerate(S):
+    A = deque()
+    s = []
+    for si in S:
         if si == "(":
-            l.append(i)
+            s.append(si)
+            A.append(len(s) - 1)
+        elif si == ")":
+            if A:
+                a = A.pop()
+                del s[a:]
+            else:
+                s.append(si)
+        else:
+            s.append(si)
 
-        if si == ")":
-            if l:
-                e.union(set(range(l.pop(), i + 1)))
-
-    s = "".join(S[i] for i in range(N) if i not in e)
-    print(s)
+    print("".join(s))
 
 
 if __name__ == "__main__":
