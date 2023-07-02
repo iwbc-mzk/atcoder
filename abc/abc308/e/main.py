@@ -1,4 +1,9 @@
-from collections import defaultdict
+def mex(i, j, k):
+    for n in range(3):
+        if n not in (i, j, k):
+            return n
+    else:
+        return 3
 
 
 def main():
@@ -6,33 +11,28 @@ def main():
     A = list(map(int, input().split()))
     S = input()
 
-    D = {"M": defaultdict(int), "E": defaultdict(int), "X": defaultdict(int)}
-    for i, s in enumerate(S):
-        D[s][(A[i])] += 1
+    E = []
+    M = [[0, 0, 0] for _ in range(N + 1)]
+    X = [[0, 0, 0] for _ in range(N + 1)]
+    for i, s in enumerate(S, 1):
+        for ii in range(3):
+            M[i][ii] = M[i - 1][ii]
+            X[i][ii] = X[i - 1][ii]
+
+        if s == "M":
+            M[i][A[i - 1]] += 1
+
+        if s == "X":
+            X[i][A[i - 1]] += 1
+
+        if s == "E":
+            E.append(i - 1)
 
     ans = 0
-
-    # 1 (1なし かつ ０あり)
-    c = (D["M"][0] + D["M"][2]) * (D["E"][0] + D["E"][2]) * (D["X"][0] + D["X"][2])
-    c -= D["M"][2] * D["E"][2] * D["X"][2]
-    ans += c
-
-    # 2 (2なし, 0, 1あり)
-    c = (D["M"][0] + D["M"][1]) * (D["E"][0] + D["E"][1]) * (D["X"][0] + D["X"][1])
-    c -= D["M"][0] * D["E"][0] * D["X"][0] + D["M"][1] * D["E"][1] * D["X"][1]
-    ans += c * 2
-
-    # 3 (0, 1, 2あり)
-    c = sum(D["M"].values()) * sum(D["E"].values()) * sum(D["X"].values())
-    c -= (D["M"][0] + D["M"][1]) * (D["E"][0] + D["E"][1]) * (D["X"][0] + D["X"][1])
-    c -= (D["M"][0] + D["M"][2]) * (D["E"][0] + D["E"][2]) * (D["X"][0] + D["X"][2])
-    c -= (D["M"][1] + D["M"][2]) * (D["E"][1] + D["E"][2]) * (D["X"][1] + D["X"][2])
-    c += (
-        (D["M"][0] * D["E"][0] * D["X"][0])
-        + (D["M"][1] * D["E"][1] * D["X"][1])
-        + (D["M"][2] * D["E"][2] * D["X"][2])
-    )
-    ans += c * 3
+    for j in E:
+        for mi in range(3):
+            for xi in range(3):
+                ans += mex(mi, A[j], xi) * M[j][mi] * (X[N][xi] - X[j][xi])
 
     print(ans)
 
