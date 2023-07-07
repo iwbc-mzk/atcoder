@@ -1,5 +1,6 @@
 def main():
-    pass
+    N = int(input())
+    print(chr(N))
 
 
 if __name__ == "__main__":
