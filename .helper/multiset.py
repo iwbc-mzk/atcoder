@@ -16,6 +16,9 @@ class Multiset:
 
         self._del_list: list[T] = []
 
+    def __len__(self) -> int:
+        return self.size()
+
     def add(self, value: T) -> None:
         heapq.heappush(self._add_list, value)
         self._add_cnt[value] += 1
