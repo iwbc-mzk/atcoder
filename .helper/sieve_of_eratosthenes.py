@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 
 # 参考: https://ikatakos.com/pot/programming_algorithm/number_theory/prime_judge
@@ -17,9 +17,8 @@ def sieve_of_eratosthenes(n: int, return_flg: bool = False) -> List[int]:
     else:
         primes = set(is_prime)
         primes.remove(0)
-        primes = list(primes)
 
-        return primes
+        return list(primes)
 
 
 if __name__ == "__main__":
