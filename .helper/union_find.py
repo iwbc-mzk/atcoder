@@ -22,9 +22,13 @@ class UnionFind:
         rx = self.root(x)
         ry = self.root(y)
 
+        if rx == ry:
+            return
+
         # Union By Size
         if self._size[rx] < self._size[ry]:
             rx, ry = ry, rx
+
         self._parents[ry] = rx
         self._size[rx] += self._size[ry]
 
