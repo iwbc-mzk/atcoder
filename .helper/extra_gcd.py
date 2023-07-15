@@ -3,7 +3,9 @@ def extGCD(a: int, b: int) -> tuple[int, int, int]:
     if b == 0:
         return (a, 1, 0)
 
-    d, y, x = extGCD(b, a % b)
-    y -= (a // b) * x
+    # a = qb + r => rx + b(qx + y) = d
+    q, r = a // b, a % b
+    d, y, x = extGCD(b, r)
+    y -= q * x
 
     return (d, x, y)
