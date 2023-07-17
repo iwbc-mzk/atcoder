@@ -1,5 +1,8 @@
+from typing import Iterable
+
+
 # ランレングス圧縮
-def run_length_encoding(s: str):
+def run_length_encoding(s: Iterable):
     pre = s[0]
     cnt = 0
     result = []
