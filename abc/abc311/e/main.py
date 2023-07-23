@@ -1,38 +1,19 @@
-import bisect
-
-
 def main():
     H, W, N = map(int, input().split())
+    holes = set(tuple(map(int, input().split())) for _ in range(N))
 
-    HW = [[1 for _ in range(W)] for _ in range(H)]
-    for _ in range(N):
-        a, b = map(int, input().split())
-        a, b = a - 1, b - 1
-        HW[a][b] = -1
+    dp = [[0 for _ in range(W + 1)] for _ in range(H + 1)]
 
-    for i in range(H):
-        flg = True
-        for j in range(1, W):
-            if HW[i][j] == -1:
-                flg = False
+    ans = 0
+    for i in range(1, H + 1):
+        for j in range(1, W + 1):
+            if (i, j) in holes:
+                continue
 
-            if flg:
-                HW[i][j] += HW[i][j - 1]
-            else:
-                HW[i][j] = -1
+            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1
+            ans += dp[i][j]
 
-    for j in range(W):
-        flg = True
-        for i in range(1, H):
-            if HW[i][j] == -1:
-                flg = False
-
-            if flg:
-                HW[i][j] += HW[i - 1][j]
-            else:
-                HW[i][j] = 0
-
-    print(sum(HW[H - 1]))
+    print(ans)
 
 
 if __name__ == "__main__":
