@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 
 # 参考: https://ikatakos.com/pot/programming_algorithm/number_theory/prime_judge
