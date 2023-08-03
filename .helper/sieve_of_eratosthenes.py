@@ -1,7 +1,10 @@
 from typing import List
 
 
-# 参考: https://ikatakos.com/pot/programming_algorithm/number_theory/prime_judge
+# 参考: 
+# https://ikatakos.com/pot/programming_algorithm/number_theory/prime_judge
+# https://manabitimes.jp/math/992
+# 計算量はO(NloglogN)
 def sieve_of_eratosthenes(n: int, return_flg: bool = False) -> List[int]:
     # 偶数は2以外は素数でないので探索候補から外す
     is_prime = [i if i % 2 else 0 for i in range(n + 1)]
