@@ -1,6 +1,18 @@
+def convert(s):
+    return ord(s) - ord("a")
+
+
 def main():
     H, W = map(int, input().split())
     C = [input() for _ in range(H)]
+
+    rows = [[0] * 26 for _ in range(H)]
+    cols = [[0] * 26 for _ in range(W)]
+    for i in range(H):
+        for j in range(W):
+            s = C[i][j]
+            rows[i][convert(s)] += 1
+            cols[j][convert(s)] += 1
 
     HS = set(range(H))
     WS = set(range(W))
@@ -11,13 +23,11 @@ def main():
             if len(WS) < 2:
                 break
 
-            s = None
-            for w in WS:
-                if s is None:
-                    s = C[h][w]
-                else:
-                    if s == C[h][w]:
-                        continue
+            flg = False
+            for v in rows[h]:
+                if v > 0:
+                    if not flg:
+                        flg = True
                     else:
                         break
             else:
@@ -27,13 +37,11 @@ def main():
             if len(HS) < 2:
                 break
 
-            s = None
-            for h in HS:
-                if s is None:
-                    s = C[h][w]
-                else:
-                    if s == C[h][w]:
-                        continue
+            flg = False
+            for v in cols[w]:
+                if v > 0:
+                    if not flg:
+                        flg = True
                     else:
                         break
             else:
@@ -43,7 +51,14 @@ def main():
             break
         else:
             HS = HS.difference(trh)
+            for t in trh:
+                for w in range(W):
+                    cols[w][convert(C[t][w])] -= 1
+
             WS = WS.difference(trw)
+            for t in trw:
+                for h in range(H):
+                    rows[h][convert(C[h][t])] -= 1
 
     lh = H - len(HS)
     lw = W - len(WS)
