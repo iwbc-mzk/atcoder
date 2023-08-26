@@ -15,12 +15,14 @@ def main():
         for w in range(W):
             if A[h][w] == "S":
                 s = (h, w)
+                A[h][w] = "."
                 continue
             if A[h][w] == "G":
                 g = (h, w)
+                A[h][w] = "."
                 continue
 
-            if A[h][w] in [".", "#"]:
+            if A[h][w] in [".", "#", "!"]:
                 continue
 
             if A[h][w] == ">":
@@ -32,11 +34,10 @@ def main():
             else:
                 dh, dw = 1, 0
 
-            A[h][w] = "#"
             hh, ww = h + dh, w + dw
             while 0 <= hh < H and 0 <= ww < W:
-                if A[hh][ww] == ".":
-                    A[hh][ww] = "#"
+                if A[hh][ww] in [".", "!"]:
+                    A[hh][ww] = "!"
                     hh += dh
                     ww += dw
                 else:
@@ -61,7 +62,7 @@ def main():
             if (hh, ww) in visited:
                 continue
 
-            if A[hh][ww] == "#":
+            if A[hh][ww] != ".":
                 continue
 
             q.append((hh, ww, d + 1))
