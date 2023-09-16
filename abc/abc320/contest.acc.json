@@ -1,0 +1,86 @@
+{
+  "contest": {
+    "id": "abc320",
+    "title": "Toyota Programming Contest 2023#5（AtCoder Beginner Contest 320）",
+    "url": "https://atcoder.jp/contests/abc320"
+  },
+  "tasks": [
+    {
+      "id": "abc320_a",
+      "label": "A",
+      "title": "Leyland Number",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_b",
+      "label": "B",
+      "title": "Longest Palindrome",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_b",
+      "directory": {
+        "path": "b",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_c",
+      "label": "C",
+      "title": "Slot Strategy 2 (Easy)",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_c",
+      "directory": {
+        "path": "c",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_d",
+      "label": "D",
+      "title": "Relative Position",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_d",
+      "directory": {
+        "path": "d",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_e",
+      "label": "E",
+      "title": "Somen Nagashi",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_e",
+      "directory": {
+        "path": "e",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_f",
+      "label": "F",
+      "title": "Fuel Round Trip",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_f",
+      "directory": {
+        "path": "f",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "abc320_g",
+      "label": "G",
+      "title": "Slot Strategy 2 (Hard)",
+      "url": "https://atcoder.jp/contests/abc320/tasks/abc320_g",
+      "directory": {
+        "path": "g",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    }
+  ]
+}
