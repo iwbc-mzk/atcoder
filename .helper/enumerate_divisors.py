@@ -1,4 +1,5 @@
 # 約数列挙
+# 計算量O(√N)
 # 参考: https://qiita.com/LorseKudos/items/9eb560494862c8b4eb56
 def enumerate_divisors(n):
     lower_divisors, upper_divisors = [], []
