@@ -1,3 +1,8 @@
+import sys
+
+sys.setrecursionlimit(10**9)
+
+
 # 参考
 # https://kanpurin.hatenablog.com/entry/2021/09/05/163703
 # https://kanpurin.hatenablog.com/entry/2021/12/22/001854
@@ -127,3 +132,32 @@ class BinaryTrie:
                 ans += self._cnt[self._nodes[2 * pt]]
             pt = self._nodes[2 * pt + ((x >> i) & 1)]
         return ans
+
+
+def main():
+    Q = int(input())
+
+    N = 2**20
+
+    bt = BinaryTrie(bitlen=60)
+    [bt.insert(i) for i in range(N)]
+
+    V = [-1 for _ in range(N)]
+    for _ in range(Q):
+        t, x = map(int, input().split())
+
+        if t == 1:
+            h = x % N
+            i = bt.lower_bound(h)
+            if i == bt.size() + 1:
+                i = bt.lower_bound(0)
+
+            v = bt.kth_elm(i)
+            bt.remove(v)
+            V[v] = x
+        else:
+            print(V[x % N])
+
+
+if __name__ == "__main__":
+    main()
