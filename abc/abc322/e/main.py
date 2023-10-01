@@ -6,49 +6,39 @@ sys.setrecursionlimit(10**9)
 def main():
     N, K, P = map(int, input().split())
     C, A = [], []
-    S = [0] * K
     for _ in range(N):
         c, *a = map(int, input().split())
         C.append(c)
         A.append(a)
-        for i, ai in enumerate(a):
-            S[i] += ai
 
-    ok = True
-    for s in S:
-        if s < P:
-            ok = False
-            break
+    INF = float("inf")
+    MAX = (P + 1) ** K
+    dp = [[INF for _ in range(MAX)] for _ in range(N + 1)]
+    dp[0][0] = 0
+    for n in range(1, N + 1):
+        cost = C[n - 1]
 
-    if not ok:
-        print(-1)
-        return
+        for i in range((P + 1) ** K):
+            if dp[n - 1][i] == INF:
+                continue
 
-    ans = float("inf")
+            a = []
+            ii = i
+            for _ in range(K - 1, -1, -1):
+                a.append(ii % (P + 1))
+                ii //= P + 1
 
-    def rec(i, c, v1, v2, v3, v4, v5):
-        nonlocal ans
+            a = a[::-1]
 
-        if i == N:
-            return
+            dp[n][i] = min(dp[n][i], dp[n - 1][i])
 
-        cc = c + C[i]
-        v = [v1, v2, v3, v4, v5]
-        ok = True
-        for j in range(K):
-            v[j] += A[i][j]
-            if v[j] < P:
-                ok = False
+            vv = 0
+            for j, (ai, Ai) in enumerate(zip(a, A[n - 1])):
+                vv += min(ai + Ai, P) * (P + 1) ** (K - j - 1)
 
-        if ok:
-            ans = min(ans, cc)
-        else:
-            rec(i + 1, cc, *v)
+            dp[n][vv] = min(dp[n][vv], dp[n - 1][i] + cost)
 
-        rec(i + 1, c, v1, v2, v3, v4, v5)
-
-    rec(0, 0, 0, 0, 0, 0, 0)
-    print(ans)
+    print(dp[N][(P + 1) ** K - 1] if dp[N][(P + 1) ** K - 1] != INF else -1)
 
 
 if __name__ == "__main__":
