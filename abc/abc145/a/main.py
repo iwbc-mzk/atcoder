@@ -4,7 +4,8 @@ sys.setrecursionlimit(10**9)
 
 
 def main():
-    pass
+    r = int(input())
+    print(r**2)
 
 
 if __name__ == "__main__":
