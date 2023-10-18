@@ -48,6 +48,9 @@ class SegTree:
         elif type_ == "gcd":
             self._segfunc = gcd
             self._init_val = 0
+        elif type_ == "xor":
+            self._segfunc = lambda x, y: x ^ y
+            self._init_val = 0
         elif type_ == "original":
             self._segfunc = segfunc
             self._init_val = init_val
