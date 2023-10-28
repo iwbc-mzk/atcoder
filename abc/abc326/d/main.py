@@ -4,55 +4,43 @@ from itertools import combinations, product, permutations
 sys.setrecursionlimit(10**9)
 
 
+def head_check(L: list[list], S: str):
+    h = []
+    for i in range(len(L)):
+        for j in range(len(L)):
+            if L[i][j] != ".":
+                h.append(L[i][j])
+                break
+
+    return S == "".join(h)
+
+
 def main():
     N = int(input())
-    R = list(input())
-    C = list(input())
+    R = input()
+    C = input()
 
-    for combs in product(combinations(range(5), 3), repeat=N):
-        A = [["." for _ in range(N)] for _ in range(N)]
-        ok = True
-        for i, comb in enumerate(combs):
-            for c in comb:
-                A[i][c] = "ABC"[c]
-
-            if A[i][min(comb)] != R[i]:
-                ok = False
-                break
-        
-        if not ok:
+    for a, b, c in product(permutations(range(N)), repeat=3):
+        if any(ai == bi or bi == ci or ci == ai for ai, bi, ci in zip(a, b, c)):
             continue
 
-        AA = ["AC..B" ".BA.C" "C.BA." "BA.C." "..CBA"]
-        for i, a in enumerate(A):
-            if AA[i] != "".join(a):
-                break
-        else:
-            pass
+        A = [["." for _ in range(N)] for _ in range(N)]
 
-        for c in range(N):
-            abc = set()
-            seen = False
-            for r in range(N):
-                if A[r][c] == ".":
-                    continue
+        for i, ai in enumerate(a):
+            A[i][ai] = "A"
 
-                if A[r][c] in abc:
-                    ok = False
-                    break
-                else:
-                    abc.add(A[r][c])
+        for i, bi in enumerate(b):
+            A[i][bi] = "B"
 
-                if not seen:
-                    if A[r][c] != C[c]:
-                        ok = False
-                        break
-                    seen = True
+        for i, ci in enumerate(c):
+            A[i][ci] = "C"
 
-        if ok:
+        AA = list(zip(*A))  # 行列入れ替え
+        if head_check(A, R) and head_check(AA, C):
             print("Yes")
             for a in A:
                 print("".join(a))
+            return
 
     print("No")
 
