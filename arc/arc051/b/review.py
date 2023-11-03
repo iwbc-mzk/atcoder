@@ -1,3 +1,4 @@
+# https://zenn.dev/wapa5pow/articles/arc051-b-a9ee813fd49725e802a7
 def main():
     K = int(input())
 
