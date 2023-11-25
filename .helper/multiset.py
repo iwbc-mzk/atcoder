@@ -26,7 +26,7 @@ class Multiset:
         heapq.heappush(self._add_list, value)
         self._add_cnt[value] += 1
 
-    def discard(self, value: T) -> None:
+    def remove(self, value: T) -> None:
         if self._add_cnt[value] > 0:
             heapq.heappush(self._del_list, value)
             self._add_cnt[value] -= 1
