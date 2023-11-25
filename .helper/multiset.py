@@ -19,6 +19,9 @@ class Multiset:
     def __len__(self) -> int:
         return self.size()
 
+    def __contains__(self, value: T) -> bool:
+        return self.count(value) > 0
+
     def add(self, value: T) -> None:
         heapq.heappush(self._add_list, value)
         self._add_cnt[value] += 1
